@@ -1,4 +1,4 @@
-# Task for installing Pester if not present.
+﻿# Task for installing Pester if not present.
 Add-BuildTask EnsurePester {
   if (!(Get-InstalledModule -Name Pester -MinimumVersion '4.7.3')) {
     Install-Module -Name Pester -MinimumVersion '4.7.3' -Scope CurrentUser -Repository PSGallery
@@ -50,7 +50,7 @@ Add-BuildTask Test EnsurePester, {
 Add-BuildTask Clean {
   $SourceDirectory = "$BuildRoot\src"
   $Module = Get-ChildItem -Path $SourceDirectory -Filter *.psd1 -Recurse | Select-Object -First 1
-  $BuildDirectory = "$BuildRoot\build\$($Module.BaseName)" 
+  $BuildDirectory = "$BuildRoot\build\$($Module.BaseName)"
   if (!(Test-Path -Path $BuildDirectory)) {
     New-Item -ItemType Directory -Path $BuildDirectory -Force | Out-Null
   }
@@ -63,7 +63,7 @@ Add-BuildTask Clean {
 Add-BuildTask Compile {
   $SourceDirectory = "$BuildRoot\src"
   $Module = Get-ChildItem -Path $SourceDirectory -Filter *.psd1 -Recurse | Select-Object -First 1
-  $BuildDirectory = "$BuildRoot\build\$($Module.BaseName)" 
+  $BuildDirectory = "$BuildRoot\build\$($Module.BaseName)"
   $DestinationModule = "$BuildDirectory\$($Module.BaseName).psm1"
   $PublicFunctions = Get-ChildItem -Path $SourceDirectory -Include 'public' -Recurse -Directory | Get-ChildItem -Include *.ps1 -File
   $PrivateFunctions = Get-ChildItem -Path $SourceDirectory -Include 'private' -Recurse -Directory | Get-ChildItem -Include *.ps1 -File
@@ -83,7 +83,7 @@ Add-BuildTask Compile {
       Add-Content -Path $DestinationModule -Value ""
     }
   }
-  
+
   $PublicFunctionNames = $PublicFunctions | Select-String -Pattern 'function (\w+-\w+) {' -AllMatches | ForEach-Object { $_.Matches.Groups[1].Value }
   Write-Output "Making $($PublicFunctionNames.Count) functions available via Export-ModuleMember"
   "Export-ModuleMember -Function {0}" -f ($PublicFunctionNames -join ', ') | Add-Content $DestinationModule
@@ -96,7 +96,7 @@ Add-BuildTask Compile {
 Add-BuildTask GenerateHelp EnsurePlatyPS, {
   $SourceDirectory = "$BuildRoot\src"
   $Module = Get-ChildItem -Path $SourceDirectory -Filter *.psd1 -Recurse | Select-Object -First 1
-  $BuildDirectory = "$BuildRoot\build\$($Module.BaseName)" 
+  $BuildDirectory = "$BuildRoot\build\$($Module.BaseName)"
   $DocsSource = "$SourceDirectory\docs"
   $HelpLocales = (Get-ChildItem -Path $DocsSource -Directory).Name
 
@@ -126,7 +126,7 @@ Add-BuildTask . Build
 Add-BuildTask Publish Build, {
   $SourceDirectory = "$BuildRoot\src"
   $Module = Get-ChildItem -Path $SourceDirectory -Filter *.psd1 -Recurse | Select-Object -First 1
-  $BuildDirectory = "$BuildRoot\build\$($Module.BaseName)" 
+  $BuildDirectory = "$BuildRoot\build\$($Module.BaseName)"
   $Manifest = Import-PowerShellDataFile -Path $Module.FullName
   $ModuleVersion = $Manifest.ModuleVersion
 

@@ -1,10 +1,13 @@
-. $PSScriptRoot\_InitializeTests.ps1
-
-$Manifest = Import-PowerShellDataFile -Path $ModuleManifestPath
+BeforeAll{
+  . $PSScriptRoot\_InitializeTests.ps1
+  $Manifest = Import-PowerShellDataFile -Path $ModuleManifestPath
+  Write-Verbose $Manifest
+}
 
 Describe "SwaggerModule Module Manifest" {
   
   Context "Manifest Validation." {
+    
     
     It "Has a valid manifest." {
       { Test-ModuleManifest -Path $ModuleManifestPath -ErrorAction Stop -WarningAction SilentlyContinue } | Should -Not -Throw

@@ -1,3 +1,7 @@
+﻿#Requires -PSEdition Core
+[diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseBOMForUnicodeEncodedFile', '')]
+param()
+
 ## Running A Build Will Compile This To A Single PSM1 File Containing All Module Code ##
 
 ## If Importing Module Source Directly, This Will Dynamically Build Root Module ##

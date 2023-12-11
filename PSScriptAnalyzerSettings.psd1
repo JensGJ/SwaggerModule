@@ -9,13 +9,13 @@
   IncludeRules = @()
 
   # Specify rules to exclude, when you want to run most of the default set of rules except for some specific ones.
-  ExcludeRules = @('PSUseToExportFieldsInManifest')
+  ExcludeRules = @('PSUseToExportFieldsInManifest', 'PSUseApprovedVerbs', 'PSUseBOMForUnicodeEncodedFile')
 
   # Pass parameters to rules that take parameters.
   Rules        = @{
     # Check if cmdlets are compatible on PowerShell Core
     PSUseCompatibleCmdlets = @{
-      Compatibility = @("core-6.1.0-windows", "core-6.1.0-linux", "core-6.1.0-macos") 
+      Compatibility = @("core-6.1.0-windows", "core-6.1.0-linux", "core-6.1.0-macos")
     }
   }
 }
