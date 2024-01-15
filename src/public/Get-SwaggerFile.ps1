@@ -1,4 +1,4 @@
-﻿function Parse-Swaggerfile {
+﻿function Get-SwaggerFile {
   [CmdletBinding()]
   Param(
       [Parameter(Mandatory = $True, ValueFromPipeline = $True)]
@@ -7,6 +7,7 @@
 
 process{
 # TODO: File info (filnavn, størrelse, antal linjer/ord, datoer)
+
   if (-not (Test-Path $path -PathType Leaf))
   {
     Write-Error "File not found ($path)";
@@ -19,7 +20,7 @@ process{
 
     }
   catch [System.ArgumentException] {
-      Write-Error "Invalid JSON file: $_"
+      Write-Error "Invalid JSON file: $path ($_)"
       return
   }
   catch {
@@ -27,6 +28,8 @@ process{
           Write-Error $_.Exception.Message
           return
    }
+
+   $fileInfo = Get-ChildItem $path
 
 
    $restURI = Get-RestURI -swagger $swagger
@@ -56,6 +59,9 @@ process{
       Security = $security
       Paths = ($paths | Select-Object path,  @{N='parameters';E={$_.parameters -join ","}})
       PathsExpanded = ($paths | Format-List | Out-String)
+      SwaggerFile = $fileInfo.FullName
+      SwaggerDate = $fileInfo.LastWriteTime
+      SwaggerLength = $fileInfo.Length
   }
 
   return New-Object -TypeName psobject -Property $serviceInfo

@@ -29,17 +29,22 @@ function Get-SwaggerPath{
     $path =  $_.Key
 #        $methodJSON =
     $_.Value | Get-ObjectMember | ForEach-Object {
+        $parameterInfo = "";
+        if ($_.value.parameters) {
+          $parameterInfo = Get-ParameterInfo ($_.value.parameters);
+        }
+
         [pscustomobject]@{
             path    = $path
             fullPath = $restURI+$path
             method = $_.Key
             parameters =  $_.Value.parameters.name
             parameterCount = $_.Value.parameters.count
-            parameterInfo = (Get-ParameterInfo   ($_.value.parameters))
-            #parameterInfo = ($_.Value.parameters | format-table name, required, type, description -autosize | out-string  ).trim()
+            parameterInfo = $parameterInfo
         }
 
 
     }
 }
+
 }

@@ -12,7 +12,7 @@
 RootModule = 'SwaggerModule.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '1.1.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -24,13 +24,13 @@ GUID = 'f35fc9c5-774a-4253-91a3-64625001239e'
 Author = 'JensGJ'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+# CompanyName = ''
 
 # Copyright statement for this module
 Copyright = '(c) JensGJ. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Module to extract service info from a Swagger file. Written for and tested with Swagger 2.0 files since the system consuming the swagger files does not support newer versions'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'
@@ -95,13 +95,13 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('swagger')
 
         # A URL to the license for this module.
         # LicenseUri = ''
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/JensGJ/SwaggerModule'
 
         # A URL to an icon representing this module.
         # IconUri = ''
